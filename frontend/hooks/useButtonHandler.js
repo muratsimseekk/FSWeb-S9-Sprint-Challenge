@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import useMailHandler from "./useMailHandler";
 
 function useButtonHandler() {
         const [mail, setMail] = useState("");
@@ -11,6 +10,21 @@ function useButtonHandler() {
                 y: 2,
         });
         const [value, setValue] = useState(false);
+
+        const [name, setName] = useState("");
+        const [send, setSend] = useState(false);
+
+        const submitHandler = (e) => {
+                // should find @ and slice before @
+                e.preventDefault();
+                if (mail.includes("@") && count > 0) {
+                        setSend(true);
+                        setName(mail.slice(0, mail.indexOf("@")));
+                } else {
+                        setName("Lütfen geçerli bir mail adresi giriniz");
+                }
+        };
+
         const clickHandler = (e) => {
                 e.preventDefault();
                 setValue(e.target.id);
@@ -20,7 +34,9 @@ function useButtonHandler() {
         const mailHandler = (e) => {
                 setMail(e.target.value);
         };
-
+        useEffect(() => {
+                console.log(name);
+        }, [send]);
         useEffect(() => {
                 if (value === "left" && coordinates.x > 1) {
                         console.log("sol");
@@ -79,6 +95,9 @@ function useButtonHandler() {
                 initialMessage,
                 mail,
                 mailHandler,
+                submitHandler,
+                name,
+                send,
         };
 }
 

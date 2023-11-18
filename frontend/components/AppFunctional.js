@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useButtonHandler from "../hooks/useButtonHandler";
-import useMailHandler from "../hooks/useMailHandler";
+
 const initialIndex = 4; //  "B" nin bulunduğu indexi
 
 export default function AppFunctional(props) {
@@ -12,6 +12,9 @@ export default function AppFunctional(props) {
                 initialMessage,
                 mail,
                 mailHandler,
+                submitHandler,
+                name,
+                send,
         } = useButtonHandler();
 
         const [index, setIndex] = useState(initialIndex);
@@ -62,7 +65,9 @@ export default function AppFunctional(props) {
                                 ))}
                         </div>
                         <div className="info">
-                                <h3 id="message">{initialMessage}</h3>
+                                <h3 id="message">
+                                        {send ? name : initialMessage}{" "}
+                                </h3>
                         </div>
                         <div id="keypad">
                                 <button id="left" onClick={clickHandler}>
@@ -92,7 +97,7 @@ export default function AppFunctional(props) {
                                 <input
                                         id="submit"
                                         type="submit"
-                                        // onClick={submitHandler}
+                                        onClick={submitHandler}
                                 ></input>
                         </form>
                 </div>
