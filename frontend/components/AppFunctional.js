@@ -13,8 +13,6 @@ export default function AppFunctional(props) {
                 mail,
                 mailHandler,
                 submitHandler,
-                name,
-                send,
         } = useButtonHandler();
 
         const [index, setIndex] = useState(initialIndex);

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function useButtonHandler() {
@@ -11,29 +12,26 @@ function useButtonHandler() {
         });
         const [value, setValue] = useState(false);
 
-        const [name, setName] = useState("");
-        const [send, setSend] = useState(false);
+        //{ "x": 1, "y": 2, "steps": 3, "email": "lady@gaga.com" }
 
         const submitHandler = (e) => {
                 e.preventDefault();
-                setName(mail.slice(0, mail.indexOf("@")));
-                if (isValidEmail(mail) && count > 0) {
-                        // Eğer e-posta geçerliyse, işlemleri buraya ekle
 
-                        setSend(true);
-                } else if (mail === "") {
-                        // Geçerli değilse hata mesajı göster
-                        setInitialMessage("Ouch: email is required");
-                } else {
-                        setInitialMessage("Ouch: email must be a valid email");
-                }
-        };
+                axios.post("http://localhost:9000/api/result", {
+                        x: coordinates.x,
+                        y: coordinates.y,
+                        steps: sayac,
+                        email: mail,
+                })
+                        .then((res) => {
+                                console.log("res:", res);
+                                setInitialMessage(res.data.message);
 
-        const isValidEmail = (email) => {
-                // E-posta doğrulama için bir düzenli ifade kullan
-                const emailRegex =
-                        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                return emailRegex.test(email);
+                                setMail("");
+                        })
+                        .catch((err) => {
+                                setInitialMessage(err.response.data.message);
+                        });
         };
 
         const clickHandler = (e) => {
@@ -45,9 +43,7 @@ function useButtonHandler() {
         const mailHandler = (e) => {
                 setMail(e.target.value);
         };
-        // useEffect(() => {
-        //         console.log(name);
-        // }, [send]);
+
         useEffect(() => {
                 if (value === "left" && coordinates.x > 1) {
                         setCoordinates({
@@ -102,8 +98,6 @@ function useButtonHandler() {
                 mail,
                 mailHandler,
                 submitHandler,
-                name,
-                send,
         };
 }
 
