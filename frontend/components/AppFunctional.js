@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useState } from "react";
+import useButtonHandler from "../hooks/useButtonHandler";
 // önerilen başlangıç stateleri
 const initialMessage = "";
 const initialEmail = "";
@@ -15,13 +15,38 @@ const initialIndex = 4; //  "B" nin bulunduğu indexi
 //      ```js
 //      (1, 1)(2, 1)(3, 1)(1, 2)(2, 2)(3, 2)(1, 3)(2, 3)(3, 3);
 //      ```
+
 export default function AppFunctional(props) {
         // AŞAĞIDAKİ HELPERLAR SADECE ÖNERİDİR.
         // Bunları silip kendi mantığınızla sıfırdan geliştirebilirsiniz.
 
+        const { value, clickHandler } = useButtonHandler();
+        const [count, setCount] = useState(0);
+
+        const coordinates = [
+                (1, 1),
+                (2, 1),
+                (3, 1),
+                (1, 2),
+                (2, 2),
+                (3, 2),
+                (1, 3),
+                (2, 3),
+                (3, 3),
+        ];
         function getXY() {
-                // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
-                // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.
+                let B = coordinates[4];
+                // Baslangic x kordinat degerim
+                let x = B[0];
+                // Baslangic y kordinat degerim
+                let y = B[1];
+
+                if (value === "left" && x > 1) {
+                        x--;
+                        console.log("sola hareket algilandi");
+                }
+
+                // butona tiklandiginda x degeri 3 ten kucukse 1 artabilir .
         }
 
         function getXYMesaj() {
@@ -77,11 +102,21 @@ export default function AppFunctional(props) {
                                 <h3 id="message"></h3>
                         </div>
                         <div id="keypad">
-                                <button id="left">SOL</button>
-                                <button id="up">YUKARI</button>
-                                <button id="right">SAĞ</button>
-                                <button id="down">AŞAĞI</button>
-                                <button id="reset">reset</button>
+                                <button id="left" onClick={clickHandler}>
+                                        SOL
+                                </button>
+                                <button id="up" onClick={clickHandler}>
+                                        YUKARI
+                                </button>
+                                <button id="right" onClick={clickHandler}>
+                                        SAĞ
+                                </button>
+                                <button id="down" onClick={clickHandler}>
+                                        AŞAĞI
+                                </button>
+                                <button id="reset" onClick={clickHandler}>
+                                        reset
+                                </button>
                         </div>
                         <form>
                                 <input
