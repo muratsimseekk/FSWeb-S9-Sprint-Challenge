@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import useMailHandler from "./useMailHandler";
 
 function useButtonHandler() {
+        const [mail, setMail] = useState("");
         const [initialMessage, setInitialMessage] = useState("");
         const [count, setCount] = useState(0);
         const [sayac, setSayac] = useState(0);
@@ -14,6 +16,11 @@ function useButtonHandler() {
                 setValue(e.target.id);
                 setCount(count + 1);
         };
+
+        const mailHandler = (e) => {
+                setMail(e.target.value);
+        };
+
         useEffect(() => {
                 if (value === "left" && coordinates.x > 1) {
                         console.log("sol");
@@ -47,13 +54,9 @@ function useButtonHandler() {
                         console.log("reset");
                         setCoordinates({ ...coordinates, x: 2, y: 2 });
                         setSayac(0);
+                        setMail("");
                 }
         }, [count]);
-
-        <div>
-                {" "}
-                <h1></h1>
-        </div>;
 
         useEffect(() => {
                 if (coordinates.x === 1 && value === "left") {
@@ -68,7 +71,15 @@ function useButtonHandler() {
                         setInitialMessage("");
                 }
         }, [count]);
-        return { value, clickHandler, coordinates, sayac, initialMessage };
+        return {
+                value,
+                clickHandler,
+                coordinates,
+                sayac,
+                initialMessage,
+                mail,
+                mailHandler,
+        };
 }
 
 export default useButtonHandler;

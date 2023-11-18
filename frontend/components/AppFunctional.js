@@ -4,9 +4,16 @@ import useMailHandler from "../hooks/useMailHandler";
 const initialIndex = 4; //  "B" nin bulunduğu indexi
 
 export default function AppFunctional(props) {
-        const { value, clickHandler, coordinates, sayac, initialMessage } =
-                useButtonHandler();
-        const { mailInput, mailHandler } = useMailHandler();
+        const {
+                value,
+                clickHandler,
+                coordinates,
+                sayac,
+                initialMessage,
+                mail,
+                mailHandler,
+        } = useButtonHandler();
+
         const [index, setIndex] = useState(initialIndex);
         useEffect(() => {
                 console.log("anlik kordinatlar ", coordinates);
@@ -77,12 +84,16 @@ export default function AppFunctional(props) {
                         <form>
                                 <input
                                         id="email"
-                                        value={mailInput}
+                                        value={mail}
                                         type="email"
                                         placeholder="email girin"
                                         onChange={mailHandler}
                                 ></input>
-                                <input id="submit" type="submit"></input>
+                                <input
+                                        id="submit"
+                                        type="submit"
+                                        // onClick={submitHandler}
+                                ></input>
                         </form>
                 </div>
         );
