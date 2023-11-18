@@ -5,12 +5,7 @@ const initialMessage = "";
 const initialEmail = "";
 const initialSteps = 0;
 const initialIndex = 4; //  "B" nin bulunduğu indexi
-
-// - HTML öğelerinin hiyerarşisi, idleri, class adları vb. aynı olmalıdır..
-//      - Geçerli kare, büyük bir B ve "active" class adıyla işaretlenmiştir.
-//      - Sayfada görüntülenen submit başarısı ve hata mesajları API'den gelir.(Network tabını inceleyin).
-//      - Frontend form doğrulama eklemenize gerek yok.
-// - Gridin her bir karesinin koordinatları aşağıdaki gibidir:
+const gridSize = 3;
 
 //      ```js
 //      (1, 1)(2, 1)(3, 1)(1, 2)(2, 2)(3, 2)(1, 3)(2, 3)(3, 3);
@@ -20,40 +15,42 @@ export default function AppFunctional(props) {
         // AŞAĞIDAKİ HELPERLAR SADECE ÖNERİDİR.
         // Bunları silip kendi mantığınızla sıfırdan geliştirebilirsiniz.
 
-        const { value, clickHandler } = useButtonHandler();
         const [count, setCount] = useState(0);
 
-        const coordinates = [
-                (1, 1),
-                (2, 1),
-                (3, 1),
-                (1, 2),
-                (2, 2),
-                (3, 2),
-                (1, 3),
-                (2, 3),
-                (3, 3),
-        ];
+        const { value, clickHandler } = useButtonHandler();
+
+        // const [x, setX] = useState(initialIndex % gridSize);
+        // const [y, setY] = useState(initialIndex / gridSize);
+        const [coordinates, setCoordinates] = useState({
+                x: 2,
+                y: 2,
+        });
+
+        console.log(value, "tusuna basildi");
+        const [index, setIndex] = useState(initialIndex);
         function getXY() {
-                let B = coordinates[4];
-                // Baslangic x kordinat degerim
-                let x = B[0];
-                // Baslangic y kordinat degerim
-                let y = B[1];
-
-                if (value === "left" && x > 1) {
-                        x--;
-                        console.log("sola hareket algilandi");
+                if (coordinates.x === 1 && coordinates.y === 1) {
+                        setIndex(0);
+                } else if (coordinates.x === 2 && coordinates.y === 1) {
+                        setIndex(1);
+                } else if (coordinates.x === 3 && coordinates.y === 1) {
+                        setIndex(2);
+                } else if (coordinates.x === 1 && coordinates.y === 2) {
+                        setIndex(3);
+                } else if (coordinates.x === 2 && coordinates.y === 2) {
+                        setIndex(4);
+                } else if (coordinates.x === 3 && coordinates.y === 2) {
+                        setIndex(5);
+                } else if (coordinates.x === 1 && coordinates.y === 3) {
+                        setIndex(6);
+                } else if (coordinates.x === 2 && coordinates.y === 3) {
+                        setIndex(7);
+                } else if (coordinates.x === 3 && coordinates.y === 3) {
+                        setIndex(8);
                 }
-
-                // butona tiklandiginda x degeri 3 ten kucukse 1 artabilir .
         }
 
-        function getXYMesaj() {
-                // Kullanıcı için "Koordinatlar (2, 2)" mesajını izlemek için bir state'in olması gerekli değildir.
-                // Koordinatları almak için yukarıdaki "getXY" helperını ve ardından "getXYMesaj"ı kullanabilirsiniz.
-                // tamamen oluşturulmuş stringi döndürür.
-        }
+        function getXYMesaj() {}
 
         function reset() {
                 // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
