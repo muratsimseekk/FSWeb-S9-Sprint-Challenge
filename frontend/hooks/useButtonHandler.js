@@ -48,9 +48,6 @@ function useButtonHandler() {
                         setSayac(0);
                 }
         }, [count]);
-        useEffect(() => {
-                console.log("anlik kordinatlar ", coordinates);
-        }, [coordinates]);
 
         return { value, clickHandler, coordinates, sayac };
 }

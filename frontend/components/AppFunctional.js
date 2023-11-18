@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useButtonHandler from "../hooks/useButtonHandler";
 // önerilen başlangıç stateleri
 const initialMessage = "";
@@ -21,8 +21,8 @@ export default function AppFunctional(props) {
         // const [y, setY] = useState(initialIndex / gridSize);
 
         const [index, setIndex] = useState(initialIndex);
-
-        function getXY() {
+        useEffect(() => {
+                console.log("anlik kordinatlar ", coordinates);
                 if (coordinates.x === 1 && coordinates.y === 1) {
                         setIndex(0);
                 } else if (coordinates.x === 2 && coordinates.y === 1) {
@@ -42,7 +42,9 @@ export default function AppFunctional(props) {
                 } else if (coordinates.x === 3 && coordinates.y === 3) {
                         setIndex(8);
                 }
-        }
+        }, [coordinates]);
+
+        function getXY() {}
 
         function getXYMesaj() {}
 
@@ -80,12 +82,12 @@ export default function AppFunctional(props) {
                                         <div
                                                 key={idx}
                                                 className={`square${
-                                                        idx === 4
+                                                        idx === index
                                                                 ? " active"
                                                                 : ""
                                                 }`}
                                         >
-                                                {idx === 4 ? "B" : null}
+                                                {idx === index ? "B" : null}
                                         </div>
                                 ))}
                         </div>
