@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useButtonHandler from "../hooks/useButtonHandler";
-// önerilen başlangıç stateleri
-const initialMessage = "";
-const initialEmail = "";
-const initialSteps = 0;
+import useMailHandler from "../hooks/useMailHandler";
 const initialIndex = 4; //  "B" nin bulunduğu indexi
-const gridSize = 3;
-
-//      ```js
-//      (1, 1)(2, 1)(3, 1)(1, 2)(2, 2)(3, 2)(1, 3)(2, 3)(3, 3);
-//      ```
 
 export default function AppFunctional(props) {
-        // AŞAĞIDAKİ HELPERLAR SADECE ÖNERİDİR.
-        // Bunları silip kendi mantığınızla sıfırdan geliştirebilirsiniz.
-
-        const { value, clickHandler, coordinates, sayac } = useButtonHandler();
-
-        // const [x, setX] = useState(initialIndex % gridSize);
-        // const [y, setY] = useState(initialIndex / gridSize);
-
+        const { value, clickHandler, coordinates, sayac, initialMessage } =
+                useButtonHandler();
+        const { mailInput, mailHandler } = useMailHandler();
         const [index, setIndex] = useState(initialIndex);
         useEffect(() => {
                 console.log("anlik kordinatlar ", coordinates);
@@ -44,36 +31,12 @@ export default function AppFunctional(props) {
                 }
         }, [coordinates]);
 
-        function getXY() {}
-
-        function getXYMesaj() {}
-
-        function reset() {
-                // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
-        }
-
-        function sonrakiIndex(yon) {
-                // Bu helper bir yön ("sol", "yukarı", vb.) alır ve "B" nin bir sonraki indeksinin ne olduğunu hesaplar.
-                // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için,
-                // şu anki indeksi değiştirmemeli.
-        }
-
-        function ilerle(evt) {}
-
-        function onChange(evt) {
-                // inputun değerini güncellemek için bunu kullanabilirsiniz
-        }
-
-        function onSubmit(evt) {
-                // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
-        }
-
         return (
                 <div id="wrapper" className={props.className}>
                         <div className="info">
                                 <h3 id="coordinates">
-                                        Koordinatlar {coordinates.x},
-                                        {coordinates.y}
+                                        Coordinates ({coordinates.x},
+                                        {coordinates.y})
                                 </h3>
                                 <h3 id="steps">{sayac} kere ilerlediniz</h3>
                         </div>
@@ -92,7 +55,7 @@ export default function AppFunctional(props) {
                                 ))}
                         </div>
                         <div className="info">
-                                <h3 id="message"></h3>
+                                <h3 id="message">{initialMessage}</h3>
                         </div>
                         <div id="keypad">
                                 <button id="left" onClick={clickHandler}>
@@ -114,8 +77,10 @@ export default function AppFunctional(props) {
                         <form>
                                 <input
                                         id="email"
+                                        value={mailInput}
                                         type="email"
                                         placeholder="email girin"
+                                        onChange={mailHandler}
                                 ></input>
                                 <input id="submit" type="submit"></input>
                         </form>

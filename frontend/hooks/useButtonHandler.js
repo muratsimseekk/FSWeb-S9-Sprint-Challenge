@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function useButtonHandler() {
+        const [initialMessage, setInitialMessage] = useState("");
         const [count, setCount] = useState(0);
         const [sayac, setSayac] = useState(0);
         const [coordinates, setCoordinates] = useState({
@@ -49,7 +50,25 @@ function useButtonHandler() {
                 }
         }, [count]);
 
-        return { value, clickHandler, coordinates, sayac };
+        <div>
+                {" "}
+                <h1></h1>
+        </div>;
+
+        useEffect(() => {
+                if (coordinates.x === 1 && value === "left") {
+                        setInitialMessage("Sola gidemezsiniz");
+                } else if (coordinates.x === 3 && value === "right") {
+                        setInitialMessage("Sağa gidemezsiniz");
+                } else if (coordinates.y === 1 && value === "up") {
+                        setInitialMessage("Yukarıya gidemezsiniz");
+                } else if (coordinates.y === 3 && value === "down") {
+                        setInitialMessage("Aşağıya gidemezsiniz");
+                } else {
+                        setInitialMessage("");
+                }
+        }, [count]);
+        return { value, clickHandler, coordinates, sayac, initialMessage };
 }
 
 export default useButtonHandler;
