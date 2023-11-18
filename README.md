@@ -36,10 +36,10 @@ Bu challengeda bir [WIDGET](https://advanced-react-grid.herokuapp.com/) için bi
 - Uygulama bir API uç noktasına sahip: `POST http://localhost:9000/api/result`.
 - Postman gibi bir HTTP istemcisi kullanarak bu uç noktayı deneyebilirsiniz.
 - Uç nokta şu şekilde bir payloada gereksinim duyuyor: `{ "x": 1, "y": 2, "steps": 3, "email": "lady@gaga.com" }`:
-  - `x` 1 ile 3 arasında bir integer olmalı.
-  - `y` 1 ile 3 arasında bir integer olmalı.
-  - `steps` 0 dan büyük bir integer olmalı.
-  - `email` geçerli bir email adresi olmalı.
+     - `x` 1 ile 3 arasında bir integer olmalı.
+     - `y` 1 ile 3 arasında bir integer olmalı.
+     - `steps` 0 dan büyük bir integer olmalı.
+     - `email` geçerli bir email adresi olmalı.
 - Eğer payload hatalı gönderilirse bir "Unprocessable Entity"(İşlenemez Varlık) sunucu cevabı döner.
 
 ## MVP
@@ -50,26 +50,24 @@ Bu challengeda bir [WIDGET](https://advanced-react-grid.herokuapp.com/) için bi
 - Kodlarınızı `frontend/components/AppFunctional.js` dosyasına yazın.
 - "AppFunctional.js" tarafından sunulan bileşen, stateful olan işlevsel bir bileşen olmalıdır.
 - Bileşenleriniz tarafından üretilen DOM, prototipteki DOM ile tam olarak eşleşmelidir:
-  - HTML öğelerinin hiyerarşisi, idleri, class adları vb. aynı olmalıdır..
-  - Geçerli kare, büyük bir B ve "active" class adıyla işaretlenmiştir. 
-  - Sayfada görüntülenen submit başarısı ve hata mesajları API'den gelir.(Network tabını inceleyin).
-  - Frontend form doğrulama eklemenize gerek yok.
+     - HTML öğelerinin hiyerarşisi, idleri, class adları vb. aynı olmalıdır..
+     - Geçerli kare, büyük bir B ve "active" class adıyla işaretlenmiştir.
+     - Sayfada görüntülenen submit başarısı ve hata mesajları API'den gelir.(Network tabını inceleyin).
+     - Frontend form doğrulama eklemenize gerek yok.
 - Gridin her bir karesinin koordinatları aşağıdaki gibidir:
 
-  ```js
-    (1, 1) (2, 1) (3, 1)
-    (1, 2) (2, 2) (3, 2)
-    (1, 3) (2, 3) (3, 3)
-  ```
+     ```js
+     (1, 1)(2, 1)(3, 1)(1, 2)(2, 2)(3, 2)(1, 3)(2, 3)(3, 3);
+     ```
 
 ❗ TÜM TESTLER GEÇMELİ
 
 ### MVP 2, Test
 
 - `codegrade_mvp.test.js` den ilham alarak `frontend/components/App.test.js` içine 5 tane test kodu yazın:
-  - Test dosyanızın içine seçtiğiniz bir bileşeni import edin, `AppFunctional.js`.
-  - Başlıklardaki, butonlardaki, bağlantılardaki görünür metinlerin ekranda göründüğünü test edin.
-  - Inputa metin girildiğinde value değişimini test eden bir test yazın.
+     - Test dosyanızın içine seçtiğiniz bir bileşeni import edin, `AppFunctional.js`.
+     - Başlıklardaki, butonlardaki, bağlantılardaki görünür metinlerin ekranda göründüğünü test edin.
+     - Inputa metin girildiğinde value değişimini test eden bir test yazın.
 
 ### Gridle ilgili diğer notlar:
 
@@ -80,14 +78,14 @@ Bu challengeda bir [WIDGET](https://advanced-react-grid.herokuapp.com/) için bi
 - Koordinatlar gibi diğer bilgi parçaları bu dizinden türetilebilir ve kendi statelerine ihtiyaç duymazlar.
 - Hayatı kendiniz için daha karmaşık (veya ilginç) hale getirmek istiyorsanız, gridin stateini saklamak için başka yapılar kullanılabilir:
 
-  ```js
-  // Bir gridi temsil etmek için düz bir dizi kullanılabilir.
-  // Ancak Uygulama bileşenimizin tüm diziyi izlemesi gerekmez, yalnızca "B"nin olduğu dizini izlemesi gerekir.
-  [null, null, null, null, "B", null, null, null, null]
+     ```js
+     // Bir gridi temsil etmek için düz bir dizi kullanılabilir.
+     // Ancak Uygulama bileşenimizin tüm diziyi izlemesi gerekmez, yalnızca "B"nin olduğu dizini izlemesi gerekir.
+     [null, null, null, null, "B", null, null, null, null][
+             // Bir gridi temsil etmek için 2 boyutlu diziler veya matrisler kullanılabilir, ancak bu, bu projede önerilmez:
+             ([null, null, null], [null, "B", null], [null, null, null])
+     ];
 
-  // Bir gridi temsil etmek için 2 boyutlu diziler veya matrisler kullanılabilir, ancak bu, bu projede önerilmez:
-  [[null, null, null], [null, "B", null], [null, null, null]]
-
-  // Bir string de işe yarayabilir, ancak JS'deki stringler değişmezdir ve bu yaklaşımı elverişsiz hale getirir:
-  "xxxxBxxxx"
-  ```
+     // Bir string de işe yarayabilir, ancak JS'deki stringler değişmezdir ve bu yaklaşımı elverişsiz hale getirir:
+     ("xxxxBxxxx");
+     ```
