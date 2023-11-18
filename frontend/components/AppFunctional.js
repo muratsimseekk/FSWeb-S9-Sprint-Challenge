@@ -19,7 +19,6 @@ export default function AppFunctional(props) {
 
         const [index, setIndex] = useState(initialIndex);
         useEffect(() => {
-                console.log("anlik kordinatlar ", coordinates);
                 if (coordinates.x === 1 && coordinates.y === 1) {
                         setIndex(0);
                 } else if (coordinates.x === 2 && coordinates.y === 1) {
@@ -65,9 +64,7 @@ export default function AppFunctional(props) {
                                 ))}
                         </div>
                         <div className="info">
-                                <h3 id="message">
-                                        {send ? name : initialMessage}{" "}
-                                </h3>
+                                <h3 id="message">{initialMessage}</h3>
                         </div>
                         <div id="keypad">
                                 <button id="left" onClick={clickHandler}>
