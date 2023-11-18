@@ -15,19 +15,13 @@ export default function AppFunctional(props) {
         // AŞAĞIDAKİ HELPERLAR SADECE ÖNERİDİR.
         // Bunları silip kendi mantığınızla sıfırdan geliştirebilirsiniz.
 
-        const [count, setCount] = useState(0);
-
-        const { value, clickHandler } = useButtonHandler();
+        const { value, clickHandler, coordinates, sayac } = useButtonHandler();
 
         // const [x, setX] = useState(initialIndex % gridSize);
         // const [y, setY] = useState(initialIndex / gridSize);
-        const [coordinates, setCoordinates] = useState({
-                x: 2,
-                y: 2,
-        });
 
-        console.log(value, "tusuna basildi");
         const [index, setIndex] = useState(initialIndex);
+
         function getXY() {
                 if (coordinates.x === 1 && coordinates.y === 1) {
                         setIndex(0);
@@ -62,10 +56,7 @@ export default function AppFunctional(props) {
                 // şu anki indeksi değiştirmemeli.
         }
 
-        function ilerle(evt) {
-                // Bu event handler, "B" için yeni bir dizin elde etmek üzere yukarıdaki yardımcıyı kullanabilir,
-                // ve buna göre state i değiştirir.
-        }
+        function ilerle(evt) {}
 
         function onChange(evt) {
                 // inputun değerini güncellemek için bunu kullanabilirsiniz
@@ -78,8 +69,11 @@ export default function AppFunctional(props) {
         return (
                 <div id="wrapper" className={props.className}>
                         <div className="info">
-                                <h3 id="coordinates">Koordinatlar (2, 2)</h3>
-                                <h3 id="steps">0 kere ilerlediniz</h3>
+                                <h3 id="coordinates">
+                                        Koordinatlar {coordinates.x},
+                                        {coordinates.y}
+                                </h3>
+                                <h3 id="steps">{sayac} kere ilerlediniz</h3>
                         </div>
                         <div id="grid">
                                 {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
